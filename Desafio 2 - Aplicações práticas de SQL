@@ -1,0 +1,84 @@
+-- Passo 1: Crie um novo Schema com nome DESAFIO
+
+CREATE schema DESAFIO;
+USE DESAFIO;
+
+
+-- Passo 2: Crie duas novas tabelas com pelo menos 4 colunas cada (não esqueça de indicar o Primary Key)
+
+CREATE TABLE Aluno (
+	id_Aluno INT PRIMARY KEY AUTO_INCREMENT,
+    NomeDoAluno VARCHAR (45) NOT NULL,
+    estado VARCHAR (45) NOT NULL,
+    idade INT NOT NULL
+);
+
+CREATE TABLE Curso (
+	id_Curso INT PRIMARY KEY AUTO_INCREMENT,
+    NomeDoCurso VARCHAR(45) NOT NULL,
+    carga_horaria INT,
+    id_Aluno INT,
+    FOREIGN KEY (id_Aluno) REFERENCES Aluno(id_Aluno)
+);
+
+
+-- Passo 3: Insira 10 novas linhas em cada tabela
+
+INSERT INTO Aluno (NomeDoAluno, idade, estado) VALUES
+('Ana', 20, 'SP'),
+('Bruno', 22, 'RJ'),
+('Carlos', 19, 'MG'),
+('Daniela', 21, 'SP'),
+('Eduardo', 23, 'BA'),
+('Fernanda', 20, 'PR'),
+('Gabriel', 24, 'SC'),
+('Helena', 18, 'RS'),
+('Igor', 22, 'GO'),
+('Julia', 19, 'PE');
+
+INSERT INTO Curso (NomeDoCurso, carga_horaria, id_Aluno) VALUES
+('Java', 60, 1),
+('Python', 80, 2),
+('SQL', 40, 3),
+('Flutter', 70, 4),
+('C++', 90, 5),
+('JavaScript', 50, 6),
+('HTML/CSS', 30, 7),
+('Dart', 60, 8),
+('React', 75, 9),
+('Node.js', 65, 10);
+
+-- Passo 4: Execute 1 comando de DML (UPDATE ou DELETE), 1 de DQL (SELECT), 3 funções Agregadas, 2 de Agrupamento e 1 JOIN.
+
+UPDATE Aluno
+SET estado = 'São Paulo'
+WHERE id_aluno = 1;
+
+SELECT * FROM Aluno;
+
+SELECT COUNT(*) FROM Aluno; 
+-- Retorna valor de contagem 10 (prova o Insert Into)
+SELECT AVG(idade) FROM Aluno;
+-- Retorna a média das idades que é 20.800
+SELECT MAX(idade) FROM Aluno;
+-- Retorna a idade máxima que é 24
+
+SELECT estado, COUNT(*) 
+FROM Aluno
+GROUP BY estado;
+-- Primeiro agrupamento: visualiza a contagem de alunos por estado
+
+SELECT carga_horaria, COUNT(*) 
+FROM Curso
+GROUP BY carga_horaria;
+-- Segundo agrupamento: visualiza a carga horaria de cada curso
+
+SELECT NomeDoAluno, NomeDoCurso
+FROM Aluno
+LEFT JOIN Curso
+ON Aluno.id_Aluno = Curso.id_Aluno;
+-- Este Join mostrará a relação da Tabela Aluno com a Tabela Curso; Aluno - Curso
+
+
+
+
